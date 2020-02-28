@@ -1,23 +1,25 @@
 pipeline {
     agent any
     environment {
-        USERID = 'user1'
-   //     PROJECT_ID = 'PROJECTID'
-   //     CLUSTER_NAME = 'CLUSTERNAME'
-   //     LOCATION = 'CLUSTERLOCATION'
+        USERID = 'demo'
+        USERGITHUB = 'peerapach'
+        PROJECTID = 'fluids-analogy-26'
+        CLUSTERNAME = 'cluster-1'
+        CLUSTERLOCATION = 'asia-southeast1-c'
         CREDENTIALS_ID = 'gke'
     }
     stages {
         stage("Checkout code") {
             steps {
                 git branch: 'master',
-                    url: "https://github.com/peerapach/ci-workshop.git"
+                    url: "https://github.com/${env.USERGITHUB}/ci-workshop.git"
             }
         }
         stage("Unit test") {
             steps {
                 withDockerContainer("peerapach/python:3.6") {
                     sh """
+                        cd src
                         python -m unittest
                     """
                 }
@@ -51,10 +53,10 @@ pipeline {
                 """
                 
                 step([$class: 'KubernetesEngineBuilder', 
-                      projectId: params.PROJECTID, 
+                      projectId: env.PROJECTID, 
                       namespace: env.USERID,
-                      clusterName: params.CLUSTERNAME, 
-                      location: params.CLUSTERLOCATION, 
+                      clusterName: env.CLUSTERNAME, 
+                      location: env.CLUSTERLOCATION, 
                       manifestPattern: 'deployment/deployment.yaml', 
                       credentialsId: env.CREDENTIALS_ID, 
                       verifyDeployments: true])
