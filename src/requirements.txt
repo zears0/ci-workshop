@@ -1,0 +1,6 @@
+flask
+requests
+eventlet
+flask-script
+coverage
+flask_testing

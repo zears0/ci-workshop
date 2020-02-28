@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-#USER#
+  namespace: #USER#
+  labels:
+    app: app-user
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-user
+  template:
+    metadata:
+      labels:
+        app: app-user
+    spec:
+      containers:
+      - name: app-user
+        image: #DOCKER-HUB-USERNAME#/#APPUSER#
+        ports:
+        - containerPort: 5000
+
