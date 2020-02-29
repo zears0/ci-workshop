@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        USERID = 'demo'
-        USERGITHUB = 'peerapach'
+        USERID = 'user15'
+        USERGITHUB = 'zears0'
         PROJECTID = 'fluids-analogy-26'
         CLUSTERNAME = 'cluster-1'
         CLUSTERLOCATION = 'asia-southeast1-c'
