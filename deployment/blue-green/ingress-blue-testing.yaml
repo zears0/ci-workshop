@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: app-#USER#-ingress
+  namespace: #USER#
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      if ( $http_test ) {
+      set $proxy_upstream_name "#USER#-app-#USER#-service-blue-80";
+      }  
+spec:
+  rules:
+  - host: #USER#.workshop.ezylinux.com
+    http:
+      paths:
+      - backend:
+          serviceName: app-#USER#-service-green
+          servicePort: 80      
+  - host: #USER#-blue.workshop.ezylinux.com
+    http:
+      paths:
+      - backend:
+          serviceName: app-#USER#-service-blue
+          servicePort: 80  
+  - host: #USER#-green.workshop.ezylinux.com
+    http:
+      paths:
+      - backend:
+          serviceName: app-#USER#-service-green
+          servicePort: 80      
