@@ -20,4 +20,22 @@ spec:
         image: #DOCKER-HUB-USERNAME#/#APPUSER#
         ports:
         - containerPort: 5000
-
+        resources:
+          limits:
+            cpu: 50m
+            memory: 512Mi
+          requests:
+            cpu: 50m
+            memory: 128Mi
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 30            
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 30 
