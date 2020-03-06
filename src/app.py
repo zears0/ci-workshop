@@ -16,7 +16,7 @@ parser = SafeConfigParser()
 
 @app.route('/')
 def index():
-    containerId=subprocess.check_output('cat /proc/self/cgroup | grep kubepods | cut -d "/" -f 5 | tail -1', shell=True, encoding='utf-8').strip()
+    containerId=subprocess.check_output('cat /proc/self/cgroup | grep kubepods | cut -d "/" -f 4 | tail -1', shell=True, encoding='utf-8').strip()
     hostname = socket.gethostname()
     IPAddr = socket.gethostbyname(hostname) 
     clientIP = request.remote_addr
