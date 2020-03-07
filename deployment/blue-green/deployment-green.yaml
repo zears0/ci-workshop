@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-#USER#-green
+  namespace: #USER#
+  labels:
+    app: app-user-green
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-user-green
+  template:
+    metadata:
+      labels:
+        app: app-user-green
+    spec:
+      containers:
+      - name: app-user-green
+        image: #DOCKER-HUB-USERNAME#/#APPUSER#
+        ports:
+        - containerPort: 5000
